@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Para ti, María Paz ✨</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
+  <style>
+    :root {
+      --rose: #d4607a;
+      --rose-light: #f4a0b0;
+      --rose-pale: #fde8ec;
+      --cream: #fff8f4;
+      --warm: #f9ede8;
+      --text-dark: #3a2228;
+      --text-mid: #7a4050;
+      --text-soft: #b07080;
+      --gold: #c8956a;
+      --gold-light: #f0d8c0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(145deg, #fde8ec 0%, #fdf0f5 40%, #fef5e8 100%);
+      background-attachment: fixed;
+      min-height: 100vh;
+      color: var(--text-dark);
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    /* ========= FLOATING HEARTS ========= */
+    #floatingHearts {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .heart-float {
+      position: absolute; bottom: -60px;
+      animation: floatUp linear infinite;
+      opacity: 0;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(0) rotate(-10deg); opacity: 0; }
+      10%  { opacity: 0.5; }
+      90%  { opacity: 0.3; }
+      100% { transform: translateY(-115vh) rotate(20deg); opacity: 0; }
+    }
+
+    /* ========= GATE ========= */
+    #gateContainer {
+      position: relative; z-index: 10;
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    .gate-card {
+      background: rgba(255,252,250,0.97);
+      border-radius: 40px;
+      padding: 2.5rem 2rem;
+      max-width: 420px; width: 100%;
+      text-align: center;
+      box-shadow: 0 30px 60px rgba(180,60,80,0.18), 0 4px 20px rgba(0,0,0,0.06);
+      border: 1px solid rgba(244,160,176,0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gate-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--rose-light), var(--gold), var(--rose-light));
+    }
+
+    .gate-icon {
+      width: 80px; height: 80px;
+      background: linear-gradient(135deg, #fde8ec, #ffd6e0);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.2rem;
+      font-size: 2.2rem;
+      box-shadow: 0 8px 24px rgba(212,96,122,0.25);
+      animation: pulseHeart 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulseHeart {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    .gate-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--rose);
+      margin-bottom: 0.3rem;
+    }
+
+    .gate-sub {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      margin-bottom: 1.8rem;
+      font-style: italic;
+    }
+
+    .input-wrap {
+      display: flex; align-items: center;
+      background: var(--warm);
+      border: 1.5px solid #f4c0cc;
+      border-radius: 50px;
+      padding: 0.3rem 0.3rem 0.3rem 1.2rem;
+      margin-bottom: 0.8rem;
+      transition: all 0.25s;
+    }
+    .input-wrap:focus-within {
+      border-color: var(--rose);
+      box-shadow: 0 0 0 3px rgba(212,96,122,0.15);
+    }
+    .input-wrap i { color: var(--rose-light); font-size: 1.1rem; }
+    .input-wrap input {
+      border: none; background: transparent;
+      padding: 0.85rem 0.8rem;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1rem; font-weight: 600;
+      color: var(--text-dark); width: 100%; outline: none;
+      -webkit-appearance: none;
+    }
+    .input-wrap input::placeholder { color: #c0a0a8; font-weight: 400; }
+
+    .hint {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+      background: var(--rose-pale);
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 0.3rem 1rem; border-radius: 40px;
+      margin-bottom: 1.5rem;
+    }
+
+    .unlock-btn {
+      background: linear-gradient(135deg, #e8708a, #d45c70);
+      color: white;
+      border: none; border-radius: 50px;
+      padding: 1rem 2rem; width: 100%;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1rem; font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 12px 24px rgba(212,96,122,0.3);
+      transition: all 0.25s;
+      letter-spacing: 0.5px;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .unlock-btn:active {
+      transform: scale(0.97);
+    }
+
+    .error-msg {
+      margin-top: 1rem;
+      background: #fde0e4;
+      color: #c0506a;
+      border-radius: 40px;
+      padding: 0.7rem 1rem;
+      font-size: 0.85rem;
+      display: none;
+      animation: shakeX 0.4s ease;
+    }
+    @keyframes shakeX {
+      0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)}
+    }
+
+    /* ========= MAIN CONTENT ========= */
+    #mainContent { display: none; }
+
+    /* NAV DOTS — más grandes en móvil */
+    .nav-dots {
+      position: fixed; right: 0.8rem; top: 50%;
+      transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: 10px;
+      z-index: 100;
+    }
+    .nav-dot {
+      width: 11px; height: 11px;
+      border-radius: 50%;
+      background: rgba(212,96,122,0.3);
+      border: 2px solid rgba(212,96,122,0.5);
+      cursor: pointer; transition: all 0.3s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .nav-dot.active {
+      background: var(--rose);
+      transform: scale(1.35);
+    }
+
+    /* SECTIONS */
+    .section {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 3.5rem 1.2rem 3.5rem 1.2rem;
+      position: relative;
+    }
+
+    .section-inner {
+      max-width: 680px; width: 100%;
+      text-align: center;
+      animation: fadeUp 0.7s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: var(--gold-light);
+      padding: 0.4rem 1.2rem; border-radius: 40px;
+      margin-bottom: 1.2rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 7vw, 3.2rem);
+      font-weight: 600;
+      line-height: 1.15;
+      margin-bottom: 1.3rem;
+    }
+
+    .section-title .accent { color: var(--rose); }
+    .section-title .soft { color: var(--text-soft); font-style: italic; }
+
+    .prose-card {
+      background: rgba(255,252,250,0.95);
+      border-radius: 28px;
+      padding: 2rem 1.8rem;
+      box-shadow: 0 16px 36px rgba(180,60,80,0.1);
+      text-align: left;
+      line-height: 1.9;
+      font-size: 1rem;
+      color: var(--text-dark);
+      border: 1px solid rgba(244,160,176,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    .prose-card::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 5px;
+      background: linear-gradient(180deg, var(--rose-light), var(--gold));
+      border-radius: 5px 0 0 5px;
+    }
+
+    .prose-card p { margin-bottom: 1rem; }
+    .prose-card p:last-child { margin-bottom: 0; }
+    .prose-card strong { color: var(--rose); font-weight: 700; }
+
+    /* HERO SECTION */
+    #sec-hero { background: linear-gradient(160deg, #fde8ec 0%, #fff5f0 100%); }
+    .hero-emoji { font-size: 3.5rem; margin-bottom: 1rem; animation: floatBob 3s ease-in-out infinite; }
+    @keyframes floatBob {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    .counter-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: white;
+      border: 1.5px solid #f4c0cc;
+      color: var(--rose);
+      padding: 0.6rem 1.4rem; border-radius: 50px;
+      font-weight: 600; font-size: 0.9rem;
+      box-shadow: 0 4px 12px rgba(212,96,122,0.12);
+      margin-top: 1.2rem;
+    }
+
+    /* GRACIAS SECTION */
+    #sec-gracias { background: linear-gradient(160deg, #fff5f0 0%, #fde8ec 100%); }
+    .thanks-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0.9rem; margin: 1.3rem 0;
+    }
+    .thanks-item {
+      background: rgba(255,252,250,0.95);
+      border-radius: 22px; padding: 1.3rem 1rem;
+      border: 1px solid rgba(244,160,176,0.3);
+      box-shadow: 0 6px 18px rgba(180,60,80,0.08);
+      text-align: center;
+      transition: transform 0.25s;
+    }
+    .thanks-item:active { transform: scale(0.97); }
+    .thanks-item .ti-icon { font-size: 1.8rem; margin-bottom: 0.5rem; }
+    .thanks-item h4 { color: var(--rose); font-size: 0.9rem; font-weight: 700; margin-bottom: 0.35rem; }
+    .thanks-item p { font-size: 0.82rem; color: var(--text-mid); line-height: 1.55; }
+
+    /* LO SIENTO SECTION */
+    #sec-losiento { background: linear-gradient(160deg, #f5f0fe 0%, #fde8f0 100%); }
+    #sec-losiento .section-title .accent { color: #8a60c0; }
+    #sec-losiento .prose-card::before { background: linear-gradient(180deg, #c0a0e0, #d4607a); }
+
+    /* RAZONES SECTION */
+    #sec-razones { background: linear-gradient(160deg, #fde8ec 0%, #fff8f0 100%); }
+    .razones-list {
+      display: flex; flex-direction: column; gap: 0.9rem;
+      margin-top: 1.3rem;
+    }
+    .razon-item {
+      background: rgba(255,252,250,0.95);
+      border-radius: 18px; padding: 1.1rem 1.3rem;
+      border: 1px solid rgba(244,160,176,0.3);
+      display: flex; align-items: flex-start; gap: 0.9rem;
+      text-align: left;
+      box-shadow: 0 4px 12px rgba(180,60,80,0.06);
+    }
+    .razon-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-weight: 300;
+      color: var(--rose-light); line-height: 1;
+      min-width: 32px;
+    }
+    .razon-text { font-size: 0.93rem; color: var(--text-mid); line-height: 1.65; padding-top: 0.25rem; }
+
+    /* GALERIA SECTION */
+    #sec-galeria { background: linear-gradient(160deg, #fff5f0 0%, #fde8ec 100%); }
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0.8rem; margin-top: 1.3rem;
+    }
+    .gallery-frame {
+      aspect-ratio: 1;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #fde8ec, #fff0e8);
+      border: 2px dashed #f4b0c0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative; overflow: hidden;
+      box-shadow: 0 4px 12px rgba(180,60,80,0.08);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .gallery-frame:active {
+      transform: scale(0.95);
+    }
+    .gallery-frame .frame-emoji { font-size: 1.9rem; }
+    .gallery-frame .frame-label {
+      font-size: 0.68rem; font-weight: 600;
+      color: var(--text-soft); text-align: center; padding: 0 0.4rem;
+      line-height: 1.3;
+    }
+
+    /* CIERRE SECTION */
+    #sec-cierre {
+      background: linear-gradient(160deg, #fde8ec 0%, #f5f0fe 100%);
+      position: relative;
+    }
+    .farewell-box {
+      background: rgba(255,252,250,0.97);
+      border-radius: 36px; padding: 2.5rem 1.8rem;
+      box-shadow: 0 30px 60px rgba(180,60,80,0.15);
+      text-align: center;
+      border: 1px solid rgba(244,160,176,0.4);
+      position: relative; overflow: hidden;
+    }
+    .farewell-box::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, #c0a0e0, var(--rose), var(--gold));
+    }
+    .farewell-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 10vw, 3.5rem); font-weight: 300; font-style: italic;
+      color: var(--rose); margin-bottom: 1rem;
+    }
+    .farewell-prose {
+      font-size: 0.97rem; line-height: 1.9;
+      color: var(--text-mid); max-width: 520px; margin: 0 auto;
+    }
+    .farewell-prose p { margin-bottom: 1rem; }
+    .farewell-sig {
+      margin-top: 2rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-style: italic; color: var(--gold);
+    }
+    .surprise-btn {
+      background: transparent;
+      border: 2px solid var(--rose-light);
+      color: var(--rose);
+      border-radius: 50px; padding: 0.85rem 2rem;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700; font-size: 0.95rem;
+      cursor: pointer; transition: all 0.25s;
+      margin-top: 2rem;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .surprise-btn:active {
+      background: var(--rose-light); color: white;
+      transform: scale(0.97);
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed; bottom: 2rem; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(50,20,28,0.92);
+      color: white; padding: 1rem 1.8rem;
+      border-radius: 50px;
+      font-size: 0.95rem; font-weight: 600;
+      z-index: 9999;
+      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+      white-space: nowrap;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      max-width: 90vw;
+      text-align: center;
+      white-space: normal;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* SCROLL INDICATOR */
+    .scroll-down {
+      position: absolute; bottom: 1.5rem; left: 50%;
+      transform: translateX(-50%);
+      color: var(--rose-light); font-size: 1.3rem;
+      animation: bounce 2s ease-in-out infinite;
+      cursor: pointer;
+    }
+    @keyframes bounce {
+      0%,100%{transform:translateX(-50%) translateY(0);}
+      50%{transform:translateX(-50%) translateY(8px);}
+    }
+
+    footer {
+      text-align: center; padding: 1.5rem;
+      font-size: 0.75rem; color: var(--text-soft);
+      background: rgba(255,252,250,0.6);
+    }
+
+    /* MOBILE ADJUSTMENTS */
+    @media (max-width: 480px) {
+      .prose-card { padding: 1.5rem 1.2rem; font-size: 0.95rem; }
+      .farewell-box { padding: 2rem 1.2rem; }
+      .gallery-grid { gap: 0.6rem; }
+      .thanks-grid { gap: 0.7rem; }
+      .section { padding: 3rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="floatingHearts"></div>
+
+<!-- ====== GATE ====== -->
+<div id="gateContainer">
+  <div class="gate-card">
+    <div class="gate-icon">🌸</div>
+    <div class="gate-title">Acceso secreto</div>
+    <div class="gate-sub">Solo para alguien muy especial</div>
+
+    <div class="input-wrap">
+      <i class="fas fa-feather-alt"></i>
+      <input type="text" id="passwordInput" placeholder="Escribe tu nombre..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    </div>
+    <div class="hint">
+      <i class="fas fa-question-circle"></i>
+      Pista: <strong>¿cuál es tu nombre?</strong> 🌷
+    </div>
+
+    <button class="unlock-btn" id="unlockBtn">
+      <i class="fas fa-unlock-alt"></i> &nbsp;Descubrir algo especial
+    </button>
+    <div id="errorMsg" class="error-msg">
+      <i class="fas fa-heart-crack"></i> Nombre incorrecto… inténtalo de nuevo 💔
+    </div>
+  </div>
+</div>
+
+<!-- ====== MAIN CONTENT ====== -->
+<div id="mainContent">
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Nav dots -->
+  <nav class="nav-dots" id="navDots">
+    <div class="nav-dot active" data-sec="0" title="Inicio"></div>
+    <div class="nav-dot" data-sec="1" title="Gracias"></div>
+    <div class="nav-dot" data-sec="2" title="Lo siento"></div>
+    <div class="nav-dot" data-sec="3" title="Lo que admiro"></div>
+    <div class="nav-dot" data-sec="4" title="Momentos"></div>
+    <div class="nav-dot" data-sec="5" title="Despedida"></div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="section" id="sec-hero">
+    <div class="section-inner">
+      <div class="hero-emoji">💐</div>
+      <div class="section-tag"><i class="fas fa-star"></i> Para ti</div>
+      <h1 class="section-title">
+        Para ti,<br>
+        <span class="accent">María Paz</span>
+      </h1>
+      <p style="color:var(--text-soft); font-size:1rem; font-style:italic; margin-bottom:1rem;">
+        Mi persona favorita en el universo
+      </p>
+      <div class="counter-pill">
+        <i class="fas fa-heart" style="color:var(--rose)"></i>
+        <span id="loveCounter">Calculando días...</span>
+      </div>
+    </div>
+    <div class="scroll-down" onclick="scrollToSection(1)">
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- GRACIAS -->
+  <section class="section" id="sec-gracias">
+    <div class="section-inner">
+      <div class="section-tag"><i class="fas fa-hand-holding-heart"></i> Con el corazón</div>
+      <h2 class="section-title">Gracias por <span class="accent">todo</span>,<br><span class="soft">lo que quizás nunca te dije</span></h2>
+
+      <div class="thanks-grid">
+        <div class="thanks-item">
+          <div class="ti-icon">🌟</div>
+          <h4>Por estar ahí</h4>
+          <p>Tenías una manera de aparecer justo cuando más lo necesitaba, aunque ni siquiera lo supieras.</p>
+        </div>
+        <div class="thanks-item">
+          <div class="ti-icon">🌸</div>
+          <h4>Por tu calidez</h4>
+          <p>Tu manera de ser cálida conmigo era una razón para venir a trabajar cada día. No cualquiera tiene ese don.</p>
+        </div>
+        <div class="thanks-item">
+          <div class="ti-icon">🌹</div>
+          <h4>Por tu sonrisa</h4>
+          <p>Tu sonrisa era una paz en medio de las tormentas. En los días más difíciles, recordaba que todo estaría bien.</p>
+        </div>
+        <div class="thanks-item">
+          <div class="ti-icon">💙</div>
+          <h4>Por ser tú</h4>
+          <p>Por ser linda, tierna y genuina. Por dejarme conocer aunque sea un poco de quién eres.</p>
+        </div>
+      </div>
+
+      <div class="prose-card" style="margin-top:1.3rem;">
+        <p>Hubo momentos en que el trabajo pesaba demasiado, que los problemas de afuera y de adentro se acumulaban hasta ahogar. Tú sabías de esos momentos, María Paz. Y sin pedirlo, tu presencia aligeraba todo. <strong>Eso no lo olvido, ni lo olvidaré.</strong></p>
+        <p>Gracias por haberte cruzado en mi camino y por haberme permitido conocerte.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LO SIENTO -->
+  <section class="section" id="sec-losiento">
+    <div class="section-inner">
+      <div class="section-tag" style="background:#ede0f8; color:#8a60c0;"><i class="fas fa-dove"></i> Con honestidad</div>
+      <h2 class="section-title">Lo siento,<br><span style="color:#8a60c0;">de verdad</span></h2>
+
+      <div class="prose-card">
+        <p>Lamento haber sido frío, distante o cortante en momentos en que no debí serlo. Lamento si alguna vez te hice sentir mal con mis actos o mi manera de ser. <strong>No era lo que merecías.</strong></p>
+        <p>También lamento haberme dejado llevar por lo que otros metían en mi cabeza. Me equivoqué al escucharlas más que a mi propio corazón. <strong>Eso no estuvo bien, y lo reconozco.</strong></p>
+        <p>Lamento mucho cómo terminó todo. Lamento haberme confesado de la manera en que lo hice: quizás lo que teníamos debió quedarse como una bonita amistad, y que ese espacio fuera suficiente. Ahora hay murallas donde antes no las había, y eso también me pesa.</p>
+        <p><strong>Sé que te quiero mucho. Y precisamente por eso respeto tus límites, los que pusimos, los que decidiste.</strong></p>
+        <p>Y lamento no haberte avisado como prometí. Lamento el peluche de despedida que nunca llegó. Lamento no haber cumplido mi palabra. Eso no estuvo bien.</p>
+        <p style="font-style:italic; color:var(--text-soft);">Atesoro cuando nos conocimos. Atesoro los buenos tiempos. Y los malos también los cargo, porque de ellos aprendí lo que no quiero volver a ser.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LO QUE ADMIRO -->
+  <section class="section" id="sec-razones">
+    <div class="section-inner">
+      <div class="section-tag"><i class="fas fa-sparkles"></i> Lo que admiro de ti</div>
+      <h2 class="section-title">Lo que eres,<br><span class="accent">y lo que serás</span></h2>
+
+      <div class="razones-list">
+        <div class="razon-item">
+          <div class="razon-num">01</div>
+          <div class="razon-text"><strong>Eres fuerte.</strong> De esas personas que cargan con mucho y aun así sonríen. Una fortaleza que pocas personas tienen.</div>
+        </div>
+        <div class="razon-item">
+          <div class="razon-num">02</div>
+          <div class="razon-text"><strong>Eres orgullosa y testaruda</strong> — y eso es bueno. Eso significa que sabes lo que vales y no lo negocias fácilmente.</div>
+        </div>
+        <div class="razon-item">
+          <div class="razon-num">03</div>
+          <div class="razon-text"><strong>Eres trabajadora.</strong> Cuando te propones algo, lo logras. Lo vi, y sé que lo seguirás demostrando en tu carrera de enfermería.</div>
+        </div>
+
+        <div class="razon-item">
+          <div class="razon-num">04</div>
+          <div class="razon-text"><strong>Me enseñaste algo que nadie antes había logrado:</strong> sentir. Nunca me había permitido Nunca antes me había permitido sentir esto por alguien.. Contigo aprendí que no es debilidad, que es lo más humano que existe.</div>
+        </div>
+        <div class="razon-item">
+          <div class="razon-num">05</div>
+          <div class="razon-text"><strong>Serás una enfermera grandiosa.</strong> Porque tienes exactamente lo que esa profesión necesita: calidez real, corazón genuino y una fortaleza que se nota desde que te conoces.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERÍA -->
+  <section class="section" id="sec-galeria">
+    <div class="section-inner">
+      <div class="section-tag"><i class="fas fa-images"></i> Momentos</div>
+      <h2 class="section-title">Instantes que<br><span class="accent">guardo</span></h2>
+      <p style="color:var(--text-soft); font-size:0.92rem; margin-bottom:0.5rem; font-style:italic;">
+        Pequeños momentos que quedaron grabados para siempre
+      </p>
+
+      <div class="gallery-grid">
+        <div class="gallery-frame">
+          <div class="frame-emoji">🌅</div>
+          <div class="frame-label">El primer día que te noté de verdad</div>
+        </div>
+        <div class="gallery-frame">
+          <div class="frame-emoji">😄</div>
+          <div class="frame-label">Cuando reías y todo lo demás dejaba de importar</div>
+        </div>
+        <div class="gallery-frame">
+          <div class="frame-emoji">🌿</div>
+          <div class="frame-label">Conversaciones tranquilas en medio del trabajo</div>
+        </div>
+        <div class="gallery-frame">
+          <div class="frame-emoji">💫</div>
+          <div class="frame-label">Cuando me escuchaste sin juzgar</div>
+        </div>
+        <div class="gallery-frame">
+          <div class="frame-emoji">🌸</div>
+          <div class="frame-label">Tu calidez en los días difíciles</div>
+        </div>
+        <div class="gallery-frame">
+          <div class="frame-emoji">🌹</div>
+          <div class="frame-label">Todo lo que no supe decirte a tiempo</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CIERRE -->
+  <section class="section" id="sec-cierre">
+    <div class="section-inner">
+      <div class="farewell-box">
+        <div class="farewell-name">María Paz</div>
+
+        <div class="farewell-prose">
+          <p>Esto es un adiós. Y aunque duela escribirlo, sé que es lo correcto.</p>
+          <p>No sé si volvamos a vernos. Quizás mis vacaciones sean el final de esto. Y si no regreso, quiero que sepas que <strong>conocerte fue uno de los mejores regalos que me ha dado la vida.</strong></p>
+          <p>A veces me siento lejos, incómodo, porque nadie me conoce como tú me conociste. Contigo pude ser real. Pude ser el niño que a veces soy también, con todo lo que eso implica. Y eso es algo que no olvido.</p>
+          <p>Sé que dijiste que el tiempo lo cura todo. Y lo creo. Pero también sé que el tiempo a veces parece que no pasa, o que pasa muy lento. No importa — <strong>sabes que no me rindo. Sigo y sigo adelante.</strong></p>
+          <p>No creo que todo sea casualidad. Creo que el destino, o Dios, o como quieras llamarlo, te puso en mi camino por una razón. Y aprendí mucho. <strong>Me aprendí a mí mismo</strong> gracias a ti.</p>
+          <p>Te deseo todo lo mejor en tu carrera de enfermería. Te deseo salud, éxito y que cada persona que cuides sienta la misma calidez que yo sentí. <strong>Te deseo felicidad entera.</strong></p>
+          <p style="margin-top:1.3rem; font-style:italic; color:var(--text-soft);">
+            Perdona lo que no cumplí. Gracias por todo lo que sí fue real. Cuídate mucho.
+          </p>
+        </div>
+
+        <div class="farewell-sig">Con cariño y respeto, siempre 🌹</div>
+
+        <button class="surprise-btn" id="surpriseBtn">
+          <i class="fas fa-heart"></i> &nbsp;Un último gesto (varia veces)
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <i class="fas fa-feather"></i> &nbsp;Tu nombre fue la llave. Tu recuerdo, el tesoro. &nbsp;🌸
+  </footer>
+
+</div><!-- /mainContent -->
+
+<script>
+(function() {
+  /* === DOM === */
+  const gate = document.getElementById('gateContainer');
+  const main = document.getElementById('mainContent');
+  const input = document.getElementById('passwordInput');
+  const btn = document.getElementById('unlockBtn');
+  const errDiv = document.getElementById('errorMsg');
+  const counterEl = document.getElementById('loveCounter');
+  const toastEl = document.getElementById('toast');
+
+  /* === FLOATING HEARTS === */
+  const heartsContainer = document.getElementById('floatingHearts');
+  const HEART_SYMBOLS = ['❤️','💖','🌸','🌹','💕','✨','🌷','💗'];
+  setInterval(() => {
+    if (heartsContainer.children.length > 30) return;
+    const h = document.createElement('div');
+    h.className = 'heart-float';
+    h.textContent = HEART_SYMBOLS[Math.floor(Math.random() * HEART_SYMBOLS.length)];
+    h.style.left = Math.random() * 100 + '%';
+    h.style.fontSize = (Math.random() * 16 + 12) + 'px';
+    h.style.animationDuration = (Math.random() * 9 + 6) + 's';
+    h.style.animationDelay = (Math.random() * 3) + 's';
+    heartsContainer.appendChild(h);
+    setTimeout(() => h.remove(), 13000);
+  }, 500);
+
+  /* === COUNTER — fecha corregida a 2025 === */
+  function updateCounter() {
+    const start = new Date('2025-02-20');
+    const now = new Date();
+    const days = Math.max(0, Math.floor((now - start) / 86400000));
+    counterEl.textContent = `${days} días desde que nos conocimos`;
+  }
+  updateCounter();
+
+  /* === TOAST === */
+  let toastTimeout;
+  function showToast(msg) {
+    clearTimeout(toastTimeout);
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    toastTimeout = setTimeout(() => toastEl.classList.remove('show'), 3500);
+  }
+
+  /* === UNLOCK — NO guarda en localStorage, siempre pide contraseña === */
+  function tryUnlock() {
+    const val = input.value.trim().toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    if (!val) { showErr('Escribe tu nombre para continuar 💕'); return; }
+    if (val === 'maria' || val === 'maria paz' || val === 'mariapaz' || val === 'paz') {
+      doUnlock();
+    } else {
+      showErr(`Hmm, "${input.value}" no es correcto. La pista: ¡es tu nombre! 💕`);
+      input.value = ''; input.focus();
+      if (navigator.vibrate) navigator.vibrate(120);
+    }
+  }
+
+  function doUnlock() {
+    confettiBurst();
+    if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+    gate.style.transition = 'opacity 0.5s, transform 0.4s';
+    gate.style.opacity = '0';
+    gate.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      gate.style.display = 'none';
+      main.style.display = 'block';
+      initNavDots();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => showToast('🌸 Bienvenida, María Paz'), 600);
+    }, 450);
+  }
+
+  // Sin localStorage — siempre pide contraseña al recargar ✅
+  btn.addEventListener('click', tryUnlock);
+  input.addEventListener('keypress', e => { if (e.key === 'Enter') tryUnlock(); });
+
+  function showErr(msg) {
+    errDiv.style.display = 'block';
+    errDiv.innerHTML = `<i class="fas fa-heart-crack"></i> ${msg}`;
+    errDiv.style.animation = 'none';
+    void errDiv.offsetWidth;
+    errDiv.style.animation = 'shakeX 0.4s ease';
+    setTimeout(() => {
+      errDiv.style.opacity = '0.5';
+      setTimeout(() => { errDiv.style.display = 'none'; errDiv.style.opacity = ''; }, 400);
+    }, 2800);
+  }
+
+  /* === NAV DOTS === */
+  const sections = ['sec-hero','sec-gracias','sec-losiento','sec-razones','sec-galeria','sec-cierre'];
+
+  function initNavDots() {
+    const dots = document.querySelectorAll('.nav-dot');
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => scrollToSection(i));
+    });
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  window.scrollToSection = function(i) {
+    document.getElementById(sections[i]).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  function onScroll() {
+    const dots = document.querySelectorAll('.nav-dot');
+    let current = 0;
+    sections.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top < window.innerHeight * 0.5) current = i;
+    });
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  /* === SURPRISE BUTTON — toast en lugar de alert === */
+  document.getElementById('surpriseBtn')?.addEventListener('click', () => {
+    confettiBurst();
+    const msgs = [
+      "🌹 Que seas muy feliz, María Paz 🌹",
+      "💙 Serás una enfermera increíble 💙",
+      "✨ Gracias por todo lo que fue real ✨",
+      "🌸 Cuídate mucho, siempre 🌸",
+      "💐 Te deseo lo mejor que la vida tiene 💐"
+    ];
+    setTimeout(() => showToast(msgs[Math.floor(Math.random() * msgs.length)]), 300);
+  });
+
+  /* === CONFETTI === */
+  function confettiBurst() {
+    if (typeof canvasConfetti === 'undefined') return;
+    canvasConfetti({ particleCount: 160, spread: 80, origin: { y: 0.6 }, colors: ['#ff9a8b','#ff6a88','#ff99ac','#ffd6e0'] });
+    setTimeout(() => canvasConfetti({ particleCount: 100, spread: 120, origin: { y: 0.5, x: 0.2 }, colors: ['#ffb347','#d4607a'] }), 150);
+    setTimeout(() => canvasConfetti({ particleCount: 100, spread: 120, origin: { y: 0.5, x: 0.8 }, colors: ['#c0a0e0','#ff8c69'] }), 300);
+  }
+
+})();
+</script>
+</body>
+</html>
